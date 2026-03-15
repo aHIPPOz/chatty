@@ -1,0 +1,328 @@
+import { Button, VerticalBox, HorizontalBox } from "std-widgets.slint";
+
+export struct ApplicationItem {
+    name: string,
+    icon: string,
+}
+
+export struct WindowItem {
+    id: int,
+    title: string,
+    is-focused: bool,
+    workspace: int,
+}
+
+export component TopBar inherits Rectangle {
+    background: #1e1e2e;
+    height: 40px;
+
+    HorizontalBox {
+        padding: 8px;
+        spacing: 8px;
+
+        Text {
+            text: "Shell";
+            font-size: 14px;
+            font-weight: bold;
+            color: #cdd6f4;
+        }
+
+        Rectangle { background: transparent; }
+
+        Text {
+            text: "14:30";
+            font-size: 12px;
+            color: #a6adc8;
+        }
+
+        Text {
+            text: "🔊 100%";
+            font-size: 12px;
+            color: #a6adc8;
+        }
+
+        Text {
+            text: "🔋 88%";
+            font-size: 12px;
+            color: #a6adc8;
+        }
+    }
+}
+
+export component TaskBar inherits Rectangle {
+    background: #313244;
+    height: 50px;
+
+    property <[WindowItem]> windows: [
+        { id: 1, title: "Terminal", is-focused: true, workspace: 1 },
+        { id: 2, title: "Files", is-focused: false, workspace: 1 },
+        { id: 3, title: "Text Editor", is-focused: false, workspace: 2 },
+    ];
+
+    callback window-clicked(int);
+
+    HorizontalBox {
+        padding: 8px;
+        spacing: 4px;
+
+        for window in root.windows : Button {
+            text: window.title;
+            width: 120px;
+            background: window.is-focused ? #89b4fa : #45475a;
+
+            clicked => {
+                root.window-clicked(window.id);
+            }
+        }
+
+        Rectangle { background: transparent; }
+    }
+}
+
+export component AppLauncher inherits Rectangle {
+    background: rgba(30, 30, 46, 0.95);
+    border-radius: 12px;
+    padding: 16px;
+
+    property <[ApplicationItem]> applications: [
+        { name: "Terminal", icon: ">_" },
+        { name: "Files", icon: "📁" },
+        { name: "Editor", icon: "📝" },
+        { name: "Browser", icon: "🌐" },
+        { name: "Settings", icon: "⚙" },
+        { name: "Music", icon: "🎵" },
+        { name: "Games", icon: "🎮" },
+        { name: "Chat", icon: "💬" },
+    ];
+
+    callback app-selected(string);
+
+    VerticalBox {
+        spacing: 12px;
+
+        Text {
+            text: "Applications";
+            font-size: 18px;
+            font-weight: bold;
+            color: #cdd6f4;
+        }
+
+        GridBox {
+            spacing: 8px;
+
+            for app in root.applications : Button {
+                col: mod(index, 4);
+                row: floor(index / 4);
+                width: 80px;
+                height: 80px;
+                text: app.icon + "\n" + app.name;
+                font-size: 10px;
+                background: #45475a;
+
+                clicked => {
+                    root.app-selected(app.name);
+                }
+            }
+        }
+    }
+}
+
+export component WorkspaceIndicator inherits Rectangle {
+    background: #313244;
+    padding: 8px;
+    border-radius: 8px;
+
+    property <int> current-workspace: 1;
+
+    callback workspace-selected(int);
+
+    HorizontalBox {
+        spacing: 4px;
+
+        for i in 4 : Button {
+            width: 30px;
+            height: 30px;
+            text: i + 1;
+            background: (i + 1) == root.current-workspace ? #89b4fa : #45475a;
+            font-size: 12px;
+
+            clicked => {
+                root.workspace-selected(i + 1);
+            }
+        }
+    }
+}
+
+export component VirtualWindow inherits Rectangle {
+    background: #313244;
+    border: 2px solid #89b4fa;
+    border-radius: 8px;
+    padding: 12px;
+    width: 300px;
+    height: 200px;
+
+    property <string> title: "Window";
+    property <bool> is-focused: false;
+
+    callback close-requested();
+    callback focus-requested();
+
+    VerticalBox {
+        spacing: 0px;
+
+        HorizontalBox {
+            height: 30px;
+            spacing: 8px;
+
+            Text {
+                text: root.title;
+                font-size: 12px;
+                font-weight: bold;
+                color: #cdd6f4;
+            }
+
+            Rectangle { background: transparent; }
+
+            Button {
+                width: 25px;
+                height: 25px;
+                text: "×";
+                clicked => { root.close-requested(); }
+            }
+        }
+
+        Rectangle {
+            background: #1e1e2e;
+            border-radius: 4px;
+
+            Text {
+                text: "[Window Content]";
+                color: #a6adc8;
+                horizontal-alignment: center;
+                vertical-alignment: center;
+            }
+        }
+    }
+}
+
+export component DesktopEnvironment inherits Window {
+    width: 1280px;
+    height: 720px;
+    background: #11111b;
+    title: "Shell Desktop - Demo";
+
+    property <int> active-workspace: 1;
+    property <bool> launcher-visible: false;
+    property <int> focused-window-id: 1;
+
+    callback show-launcher();
+    callback hide-launcher();
+
+    VerticalBox {
+        spacing: 0px;
+
+        // Top bar
+        TopBar {}
+
+        // Main content area
+        Rectangle {
+            background: #11111b;
+
+            VerticalBox {
+                padding: 16px;
+                spacing: 12px;
+
+                HorizontalBox {
+                    spacing: 12px;
+
+                    // Left sidebar with workspace indicator
+                    Rectangle {
+                        width: 120px;
+                        background: #1e1e2e;
+                        border-radius: 8px;
+
+                        VerticalBox {
+                            padding: 12px;
+                            spacing: 12px;
+
+                            Text {
+                                text: "Workspaces";
+                                font-size: 12px;
+                                font-weight: bold;
+                                color: #a6adc8;
+                            }
+
+                            WorkspaceIndicator {
+                                current-workspace: root.active-workspace;
+                                workspace-selected(ws) => {
+                                    root.active-workspace = ws;
+                                }
+                            }
+                        }
+                    }
+
+                    // Main desktop area
+                    Rectangle {
+                        background: transparent;
+
+                        if root.launcher-visible : AppLauncher {
+                            x: (parent.width - width) / 2;
+                            y: (parent.height - height) / 2;
+                            width: 400px;
+
+                            app-selected(app) => {
+                                root.hide-launcher();
+                            }
+                        }
+
+                        if !root.launcher-visible : VirtualWindow {
+                            x: 20px;
+                            y: 20px;
+                            title: "Terminal";
+                            is-focused: root.focused-window-id == 1;
+
+                            close-requested => {}
+                            focus-requested => { root.focused-window-id = 1; }
+                        }
+
+                        if !root.launcher-visible : VirtualWindow {
+                            x: 340px;
+                            y: 80px;
+                            title: "Files";
+                            is-focused: root.focused-window-id == 2;
+
+                            close-requested => {}
+                            focus-requested => { root.focused-window-id = 2; }
+                        }
+                    }
+                }
+            }
+        }
+
+        // Task bar at bottom
+        TaskBar {}
+
+        // Quick launcher button overlay (bottom-left)
+        Rectangle {
+            background: transparent;
+            height: 60px;
+            width: 60px;
+
+            Button {
+                x: 10px;
+                y: 10px;
+                width: 40px;
+                height: 40px;
+                text: "⊞";
+                font-size: 20px;
+                background: #89b4fa;
+
+                clicked => {
+                    root.launcher-visible = !root.launcher-visible;
+                }
+            }
+        }
+    }
+}
+
+export component AppWindow inherits DesktopEnvironment {}

@@ -1,0 +1,19 @@
+[package]
+name = "slint-rust-template"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+slint = "1.14.1"
+
+[build-dependencies]
+slint-build = "1.14.1"
+
+[lib]
+path = "src/lib.rs"
+crate-type = ["cdylib"]
+
+[target.'cfg(target_family = "wasm")'.dependencies]
+wasm-bindgen = { version = "0.2" }
