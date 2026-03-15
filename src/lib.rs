@@ -7,30 +7,12 @@ slint::include_modules!();
 pub fn main() -> Result<(), JsValue> {
     let ui = AppWindow::new().map_err(|e| JsValue::from_str(&e.to_string()))?;
 
-    // Handle launcher toggle
+    // Setup launcher toggle
     {
         let ui_handle = ui.as_weak();
-        ui.on_show_launcher(move || {
+        ui.on_toggle_launcher(move || {
             let ui = ui_handle.unwrap();
-            ui.set_launcher_visible(true);
-        });
-    }
-
-    {
-        let ui_handle = ui.as_weak();
-        ui.on_hide_launcher(move || {
-            let ui = ui_handle.unwrap();
-            ui.set_launcher_visible(false);
-        });
-    }
-
-    // Handle workspace switching
-    {
-        let ui_handle = ui.as_weak();
-        ui.on_request_increase_value(move || {
-            let ui = ui_handle.unwrap();
-            let ws = ui.get_active_workspace();
-            ui.set_active_workspace(if ws < 4 { ws + 1 } else { 1 });
+            ui.set_show_launcher(!ui.get_show_launcher());
         });
     }
 

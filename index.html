@@ -1,5 +1,126 @@
-<canvas id="canvas"></canvas>
-<script type="module">
-  import init from "./pkg/slint_rust_template.js";
-  init();
-</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐧 Shell Desktop - WASM Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #11111b;
+            color: #cdd6f4;
+            overflow: hidden;
+        }
+        
+        #container {
+            width: 100vw;
+            height: 100vh;
+        }
+        
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .info {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(30, 30, 46, 0.8);
+            border: 1px solid #45475a;
+            border-radius: 6px;
+            padding: 10px 15px;
+            font-size: 12px;
+            color: #a6adc8;
+            z-index: 1000;
+            backdrop-filter: blur(4px);
+        }
+        
+        .controls {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(30, 30, 46, 0.8);
+            border: 1px solid #45475a;
+            border-radius: 6px;
+            padding: 10px 15px;
+            font-size: 12px;
+            color: #a6adc8;
+            z-index: 1000;
+            backdrop-filter: blur(4px);
+        }
+        
+        .controls button {
+            background: #89b4fa;
+            color: #1e1e2e;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 11px;
+            margin-left: 8px;
+            transition: all 0.2s;
+        }
+        
+        .controls button:hover {
+            background: #74c7ec;
+            transform: translateY(-1px);
+        }
+        
+        .controls button:active {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <canvas id="canvas"></canvas>
+    </div>
+    
+    <div class="controls">
+        <span>Super+Spc to toggle launcher</span>
+    </div>
+    
+    <div class="info">
+        🐧 Shell Desktop WASM Demo | Slint+Rust | Ready for Smithay transition
+    </div>
+
+    <script type="module">
+        // Import WASM module
+        import init from "./pkg/slint_rust_template.js";
+        
+        async function main() {
+            try {
+                console.log("🚀 Initializing Shell Desktop WASM...");
+                init();
+                console.log("✅ WASM loaded successfully!");
+                console.log("💡 Try clicking workspace buttons, app buttons, and window titles");
+            } catch (error) {
+                console.error("❌ Failed to load WASM:", error);
+                alert("Error loading WASM module. Check console for details.");
+            }
+        }
+        
+        // Keyboard shortcut simulation (Super+Space to toggle launcher)
+        document.addEventListener('keydown', (e) => {
+            if ((e.metaKey || e.ctrlKey) && e.code === 'Space') {
+                e.preventDefault();
+                console.log("🚀 Toggle launcher shortcut triggered!");
+                // In real app, would call: ui.invoke_toggle_launcher();
+            }
+        });
+        
+        console.log("🐧 Shell Desktop - WASM Version");
+        console.log("📖 Documentation: See DEMO.md");
+        main();
+    </script>
+</body>
+</html>
