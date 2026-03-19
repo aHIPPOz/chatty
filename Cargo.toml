@@ -1,22 +1,37 @@
 [package]
-name = "slint-rust-template"
+name = "chatty"
 version = "0.1.0"
 edition = "2021"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+description = "🐧 Modern desktop shell prototype in Slint+Rust"
+license = "MIT"
 
 [dependencies]
 slint = "1.14.1"
 
+# WASM-only
+[target.'cfg(target_family = "wasm")'.dependencies]
+wasm-bindgen = "0.2"
+
+# Native Linux/Wayland (future)
+[target.'cfg(target_os = "linux")'.dependencies]
+# smithay = { version = "0.3", features = ["desktop", "render"] }
+# wayland-server = "0.30"
+# calloop = "0.12"
+
 [build-dependencies]
 slint-build = "1.14.1"
 
+# WASM library (web demo)
 [lib]
 path = "src/lib.rs"
 crate-type = ["cdylib"]
 
-[build]
-rustflags = ["--cfg=web_sys_unstable_apis"]
+# Native binary (Linux/Wayland)
+[[bin]]
+name = "chatty"
+path = "src/main.rs"
 
-[target.'cfg(target_family = "wasm")'.dependencies]
-wasm-bindgen = { version = "0.2" }
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1

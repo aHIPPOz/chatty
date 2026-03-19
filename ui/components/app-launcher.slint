@@ -1,0 +1,39 @@
+import { Button, VerticalBox, HorizontalBox } from "std-widgets.slint";
+
+export component AppLauncher inherits Rectangle {
+    background: rgba(30, 30, 46, 0.95);
+    border-radius: 12px;
+    width: 340px;
+
+    VerticalBox {
+        padding: 16px;
+        spacing: 12px;
+
+        Text {
+            text: "📱 Applications";
+            font-size: 18px;
+            font-weight: 700;
+            color: #cdd6f4;
+        }
+
+        VerticalBox {
+            spacing: 8px;
+
+            HorizontalBox {
+                spacing: 8px;
+                Button { width: 60px; height: 60px; text: "🖥️\nTerminal"; }
+                Button { width: 60px; height: 60px; text: "📁\nFiles"; }
+                Button { width: 60px; height: 60px; text: "📝\nEditor"; }
+                Button { width: 60px; height: 60px; text: "🌐\nBrowser"; }
+            }
+
+            HorizontalBox {
+                spacing: 8px;
+                Button { width: 60px; height: 60px; text: "⚙️\nSettings"; }
+                Button { width: 60px; height: 60px; text: "🎵\nMusic"; }
+                Button { width: 60px; height: 60px; text: "🎮\nGames"; }
+                Button { width: 60px; height: 60px; text: "💬\nChat"; }
+            }
+        }
+    }
+}

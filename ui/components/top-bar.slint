@@ -1,0 +1,26 @@
+import { Button, VerticalBox, HorizontalBox } from "std-widgets.slint";
+
+export component TopBar inherits Rectangle {
+    background: #1e1e2e;
+    height: 40px;
+
+    HorizontalBox {
+        padding: 8px;
+        spacing: 8px;
+
+        Text {
+            text: "🐧 Shell Desktop";
+            font-size: 14px;
+            font-weight: 700;
+            color: #cdd6f4;
+        }
+
+        Rectangle { background: transparent; }
+
+        Text {
+            text: "14:30 | 🔊 100% | 🔋 88%";
+            font-size: 12px;
+            color: #a6adc8;
+        }
+    }
+}

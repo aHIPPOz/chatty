@@ -759,6 +759,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "chatty"
+version = "0.1.0"
+dependencies = [
+ "slint",
+ "slint-build",
+ "wasm-bindgen",
+]
+
+[[package]]
 name = "chrono"
 version = "0.4.44"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4175,15 +4184,6 @@ dependencies = [
  "proc-macro2",
  "quote",
  "spin_on",
-]
-
-[[package]]
-name = "slint-rust-template"
-version = "0.1.0"
-dependencies = [
- "slint",
- "slint-build",
- "wasm-bindgen",
 ]
 
 [[package]]

@@ -1,0 +1,17 @@
+import { Button, VerticalBox, HorizontalBox } from "std-widgets.slint";
+
+export component TaskBar inherits Rectangle {
+    background: #313244;
+    height: 50px;
+
+    HorizontalBox {
+        padding: 8px;
+        spacing: 4px;
+
+        Button { text: "🖥️ Terminal"; width: 110px; }
+        Button { text: "📁 Files"; width: 110px; }
+        Button { text: "📝 Editor"; width: 110px; }
+
+        Rectangle { background: transparent; }
+    }
+}

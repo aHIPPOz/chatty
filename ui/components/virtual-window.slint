@@ -1,0 +1,53 @@
+import { Button, VerticalBox, HorizontalBox } from "std-widgets.slint";
+
+export component VirtualWindow inherits Rectangle {
+    background: #313244;
+    border-radius: 8px;
+    width: 280px;
+    height: 180px;
+
+    in-out property <string> window-title: "Window";
+    in-out property <bool> window-focused: false;
+
+    VerticalBox {
+        spacing: 0px;
+
+        Rectangle {
+            background: root.window-focused ? #89b4fa : #45475a;
+            height: 28px;
+
+            HorizontalBox {
+                padding: 4px;
+                spacing: 8px;
+
+                Text {
+                    text: root.window-title;
+                    font-size: 11px;
+                    font-weight: 700;
+                    color: root.window-focused ? #1e1e2e : #cdd6f4;
+                }
+
+                Rectangle { background: transparent; }
+
+                Button {
+                    width: 20px;
+                    height: 20px;
+                    text: "×";
+                }
+            }
+        }
+
+        Rectangle {
+            background: #1e1e2e;
+            border-radius: 0px;
+
+            Text {
+                text: "[" + root.window-title + " - running...]";
+                color: #89b4fa;
+                horizontal-alignment: center;
+                vertical-alignment: center;
+                font-size: 11px;
+            }
+        }
+    }
+}
