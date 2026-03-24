@@ -759,15 +759,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "chatty"
-version = "0.1.0"
-dependencies = [
- "slint",
- "slint-build",
- "wasm-bindgen",
-]
-
-[[package]]
 name = "chrono"
 version = "0.4.44"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -5171,6 +5162,15 @@ dependencies = [
  "log",
  "once_cell",
  "pkg-config",
+]
+
+[[package]]
+name = "waylestia"
+version = "0.1.0"
+dependencies = [
+ "slint",
+ "slint-build",
+ "wasm-bindgen",
 ]
 
 [[package]]

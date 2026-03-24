@@ -1,5 +1,5 @@
 [package]
-name = "chatty"
+name = "waylestiaDemo"
 version = "0.1.0"
 edition = "2021"
 description = "🐧 Modern desktop shell prototype in Slint+Rust"

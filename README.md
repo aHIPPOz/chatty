@@ -1,4 +1,4 @@
-# 🐧 Chatty - Modern Desktop Shell
+# 🐧 waylestiaDemo - Modern Desktop Shell
 
 > Un shell desktop alternative à KDE Plasma & Hyprland, basé sur **Slint + Rust**, prototypé en WASM pour itération rapide, avec transition prévue vers un composeur Wayland natif.
 
