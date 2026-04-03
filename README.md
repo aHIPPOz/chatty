@@ -285,6 +285,86 @@ http://localhost:8080
 # Aller natif (bientôt)
 # → Voir SMITHAY_ROADMAP.md
 ```
+Fonctionnalité Description Avancement
+Options avancées pour tout Tout ce qui existe (tiling, snap, etc.) aura ses options avancées (séparation, gap personnalisable, etc.) 🔜 Bientôt
+
+🤝 Contributing
+
+Avant de commiter
+
+1. Tester les builds WASM: wasm-pack build --release --target web
+2. Vérifier pas d'erreurs Slint/Rust
+3. Documenter changements majeurs
+
+Workflow recommandé
+
+```bash
+# 1. Créer branche
+git checkout -b feature/mon-feature
+
+# 2. Modifier code
+# 3. Test WASM
+wasm-pack build --target web
+
+# 4. Commit & push
+git commit -m "feat: description"
+```
+
+📚 Ressources
+
+Apprendre Slint
+
+· Official Tutorial
+· Widget Gallery
+· GitHub Repo
+
+Apprendre Rust
+
+· The Book
+· Rust By Example
+· Interactive Tour
+
+WASM Development
+
+· MDN Web Docs
+· wasm-pack Book
+
+🎯 Roadmap
+
+Court terme (2-4 semaines)
+
+· Améliorer animations UI
+· Ajouter plus d'apps au launcher
+· Drag & drop windows
+· Keyboard shortcuts
+· Commencer l'installateur graphique
+· Implémenter le mode tiling simple
+
+Moyen terme (1-2 mois)
+
+· Créer backend Smithay
+· Multi-monitor support
+· Persistent workspace state
+· Custom keybind config
+· Intégration Wallpaper Engine
+· Configurateur graphique (première version)
+· Support Hyprland + Wayfire
+
+Long terme (3+ mois)
+
+· Full tiling layouts
+· Plugin system
+· System integration (audio, network)
+· Mobile/tablet support
+· Chat IA intégré
+· Personnalisation infinie (IA)
+
+
+👨‍💻 Author
+
+aHIPPOz - 2026
+A2ER7Y - 2026 
+PYRROX - 2026
 
 **Questions?** Consultez DEMO.md et SMITHAY_ROADMAP.md! 🚀
 
